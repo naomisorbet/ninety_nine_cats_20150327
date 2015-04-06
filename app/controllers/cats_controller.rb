@@ -14,8 +14,7 @@ class CatsController < ApplicationController
 
   # GET /cats/new
   def new
-    render "../views/cats/new.html.erb", :layout => false
-    @cat = Cat.new
+     @cat = Cat.new
   end
 
   # GET /cats/1/edit

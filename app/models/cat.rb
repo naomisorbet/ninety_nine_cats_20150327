@@ -2,7 +2,7 @@ class Cat < ActiveRecord::Base
   
   require 'date'
   
-  validates: :color, :sex, :presence => :true
+  validates :color, :sex, :presence => :true
   
   def age
     today = Date.today
@@ -24,7 +24,8 @@ class Cat < ActiveRecord::Base
     ["M", "F", "Other"]
   end
   
-  validates: :sex, :inclusion { :in => self.sexes }
-  validates: :color, :inclusion { :in => self.colors }
+  validates :sex, :inclusion => { :in => self.sexes }
+  validates :color, :inclusion => { :in => self.colors }
+  
   
 end

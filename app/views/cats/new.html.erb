@@ -1,7 +1,5 @@
-erb new.html.erb > new.html
-
 <h1>New Cat</h1>
 
-<%= render 'form' %>
+<%= render 'form', cat: @cat %>
 
 <%= link_to 'Back', cats_path %>
