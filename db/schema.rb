@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402021259) do
+ActiveRecord::Schema.define(version: 20150406212140) do
+
+  create_table "cat_rental_requests", force: :cascade do |t|
+    t.integer  "cat_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "status"
+  end
 
   create_table "cats", force: :cascade do |t|
     t.date     "birth_date"

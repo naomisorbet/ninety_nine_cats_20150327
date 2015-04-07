@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cat:</strong>
+  <%= @cat_rental_request.cat_id %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @cat_rental_request.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @cat_rental_request.end_date %>
+</p>
+
+<p>
+	<strong>Status:</strong>
+	<%= @cat_rental_request.status %>
+</p>
+
+<%= link_to 'Edit', edit_cat_rental_request_path(@cat_rental_request) %> |
+<%= link_to 'Back', cat_rental_requests_path %>

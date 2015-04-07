@@ -3,6 +3,7 @@ class Cat < ActiveRecord::Base
   require 'date'
   
   validates :color, :sex, :presence => :true
+  has_many :cat_rental_requests, :dependent => :destroy
   
   def age
     today = Date.today
