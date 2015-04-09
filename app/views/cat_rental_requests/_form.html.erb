@@ -12,10 +12,8 @@
   <% end %>
 
   <div class="field">
-	<% Cat.all.each do |cat| %>
-    	<%= f.label cat.name %><br>
-    	<%#= f.select cat.name %>
-	<% end %>
+	<%= f.label :cat %><br>
+	<%= f.collection_select( :cat_id, Cat.all, :id, :name) %>
   </div>
   <div class="field">
     <%= f.label :start_date %><br>

@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Birth date:</strong>
-  <%= @cat.birth_date %>
+  <strong>Name:</strong>
+  <%= @cat.name %>
 </p>
 
 <p>
@@ -11,13 +11,13 @@
 </p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @cat.name %>
+  <strong>Sex:</strong>
+  <%= @cat.sex %>
 </p>
 
 <p>
-  <strong>Sex:</strong>
-  <%= @cat.sex %>
+  <strong>Birth date:</strong>
+  <%= @cat.birth_date %>
 </p>
 
 <p>
@@ -25,5 +25,22 @@
   <%= @cat.description %>
 </p>
 
+<p>
+  <strong>Rental Requests:</strong>
+  <table>
+	  <tr>
+		  <th>Start Date</th>
+		  <th></th>
+		  <th>End Date</th>
+	  </tr>
+  	<% @cat.cat_rental_requests.order(:start_date).each do 													|request| %>
+		<tr>
+			<td><%= request.start_date %></td>
+			<td>  . . .  </td>
+			<td><%= request.end_date %></td>
+		</tr>
+	<% end %>
+</p>
+</table>
 <%= link_to 'Edit', edit_cat_path(@cat) %> |
 <%= link_to 'Back', cats_path %>

@@ -18,7 +18,7 @@ class Cat < ActiveRecord::Base
   end
   
   def self.colors 
-    ["black", "brown", "tabby", "Siamese", "white"]
+    ["black", "brown", "orange", "Siamese", "white", "other"]
   end
   
   def self.sexes

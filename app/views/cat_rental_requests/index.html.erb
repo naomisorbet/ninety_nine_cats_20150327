@@ -16,7 +16,7 @@
   <tbody>
     <% @cat_rental_requests.each do |cat_rental_request| %>
       <tr>
-        <td><%= cat_rental_request.cat_id %></td>
+        <td><%= link_to "#{cat_rental_request.cat.name}", cats_url(cat_rental_request.cat) %></td>
         <td><%= cat_rental_request.start_date %></td>
         <td><%= cat_rental_request.end_date %></td>
 		<td><%= cat_rental_request.status %></td>

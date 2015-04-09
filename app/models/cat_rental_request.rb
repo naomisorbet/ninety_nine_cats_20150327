@@ -12,16 +12,18 @@ class CatRentalRequest < ActiveRecord::Base
   end
   
   validates :status, :inclusion => { :in => self.status_options }
-  
+
   def approve!
     raise "not pending" unless self.status == "pending"
+    raise "overlaps an already-approved request" if 
+          overlapping_approved_requests.any?
     transaction do
       self.status = "approved"
       self.save!
       overlapping_pending_requests.update_all(status: "denied")
     end
   end
-  
+
   def approved?
     self.status == "approved"
   end

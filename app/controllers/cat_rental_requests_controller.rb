@@ -28,7 +28,7 @@ class CatRentalRequestsController < ApplicationController
     @cat_rental_request = CatRentalRequest.new(cat_rental_request_params)
 
     respond_to do |format|
-      if 
+      if @cat_rental_request.save!
         format.html { redirect_to @cat_rental_request, notice: 'Cat rental request was successfully created.' }
         format.json { render :show, status: :created, location: @cat_rental_request }
       else

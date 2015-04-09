@@ -10,22 +10,22 @@
       </ul>
     </div>
   <% end %> -->
-
-  <div class="field">
-    <%= f.label :birth_date %><br>
-    <%= f.date_select :birth_date %>
-  </div>
-  <div class="field">
-    <%= f.label :color %><br>
-    <%= f.text_field :color %>
-  </div>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :color %><br>
+    <%= f.collection_select :color, Cat::colors, :to_s, :to_s, 
+		 :include_blank => true %>
+  </div>
+  <div class="field">
     <%= f.label :sex %><br>
     <%= f.text_field :sex %>
+  </div>
+  <div class="field">
+    <%= f.label :birth_date %><br>
+    <%= f.date_select :birth_date %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
