@@ -2,7 +2,6 @@
   <% if @cat_rental_request.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@cat_rental_request.errors.count, "error") %> prohibited this cat_rental_request from being saved:</h2>
-
       <ul>
       <% @cat_rental_request.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,10 +9,10 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
 	<%= f.label :cat %><br>
-	<%= f.collection_select( :cat_id, Cat.all, :id, :name) %>
+	<% @cat = Cat.find_by_id(params[:cat_id]) if params[:cat_id]%>
+	<%= f.collection_select( :cat_id, Cat.all, :id, :name, :selected => params[:cat_id] ) %>
   </div>
   <div class="field">
     <%= f.label :start_date %><br>

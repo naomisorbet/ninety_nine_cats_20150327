@@ -1,6 +1,7 @@
 class CatsController < ApplicationController
   before_action :set_cat, only: [:show, :edit, :update, :destroy]
-
+  before_action :ensure_cat_ownership, only: [:edit, :update]
+    
   # GET /cats
   # GET /cats.json
   def index
@@ -25,10 +26,10 @@ class CatsController < ApplicationController
   # POST /cats.json
   def create
     @cat = Cat.new(cat_params)
-
+    @cat.owner_id = current_user.id
     respond_to do |format|
       if @cat.save
-        format.html { redirect_to @cat, notice: 'Cat was successfully created.' }
+        format.html { redirect_to :cats, notice: 'Cat was successfully created.' }
         format.json { render :show, status: :created, location: @cat }
       else
         format.html { render :new }
@@ -62,6 +63,14 @@ class CatsController < ApplicationController
   end
 
   private
+  
+    def ensure_cat_ownership
+      unless @current_user_id == @cat.owner_id
+        flash[:notices] = "Not your cat"
+        redirect_to cats_url
+      end
+    end
+        
     # Use callbacks to share common setup or constraints between actions.
     def set_cat
       @cat = Cat.find(params[:id])

@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+
+* { 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+	 padding: 0px;
+	 margin: 0px;
+	 width: auto;
+}
+
+.account-area {
+	float: right;
+	display: block;
+}
+
+#logout-button {
+	position: absolute;
+	top: -.01em;
+	right: -.05em;
+	margin-right: 2em;
+}
+
+.unbulleted_list {
+	list-style-type: none;
+}
+
+#username {
+	margin-right: 5em;
+	width: auto;
+}

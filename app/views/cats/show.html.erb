@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @cat.name %>
+  <h1><%= @cat.name %></h1>
 </p>
 
 <p>
@@ -25,16 +24,20 @@
   <%= @cat.description %>
 </p>
 
+<%= button_to "Rent me!", new_cat_rental_request_url(cat_id: @cat.id), method: :post %>
+
 <p>
   <strong>Rental Requests:</strong>
   <table>
 	  <tr>
+		  <th>Requester</th>
 		  <th>Start Date</th>
 		  <th></th>
 		  <th>End Date</th>
 	  </tr>
   	<% @cat.cat_rental_requests.order(:start_date).each do 													|request| %>
 		<tr>
+			<td><strong><%= request.renter.username %></stong></td>
 			<td><%= request.start_date %></td>
 			<td>  . . .  </td>
 			<td><%= request.end_date %></td>
@@ -44,3 +47,7 @@
 </table>
 <%= link_to 'Edit', edit_cat_path(@cat) %> |
 <%= link_to 'Back', cats_path %>
+
+<br>
+
+<img src="http://placekitten.com/g/600/400"></img>

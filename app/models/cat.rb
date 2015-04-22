@@ -2,8 +2,11 @@ class Cat < ActiveRecord::Base
   
   require 'date'
   
-  validates :color, :sex, :presence => :true
+  belongs_to :owner, :class_name => "User", :foreign_key => "owner_id", :primary_key => :id
   has_many :cat_rental_requests, :dependent => :destroy
+  
+  validates :color, :sex, :owner_id, :presence => :true
+
   
   def age
     today = Date.today

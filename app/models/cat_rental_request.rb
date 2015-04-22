@@ -2,13 +2,15 @@ class CatRentalRequest < ActiveRecord::Base
   
   require 'date'
   
-  validates :cat_id, :start_date, :end_date, :status, :presence => :true
+  validates :renter_id, :cat_id, :start_date, :end_date, :status, :presence => :true
   after_initialize :assign_pending_status
+  
   belongs_to :cat
+  belongs_to :renter, :class_name => "User", :foreign_key => "renter_id", :primary_key => :id
   
   
   def self.status_options
-    %w(approved, denied, pending)
+    %w(approved denied pending)
   end
   
   validates :status, :inclusion => { :in => self.status_options }
@@ -20,7 +22,9 @@ class CatRentalRequest < ActiveRecord::Base
     transaction do
       self.status = "approved"
       self.save!
-      overlapping_pending_requests.update_all(status: "denied")
+      overlapping_pending_requests.each do |request|
+        request.update_aattribute(status: "denied")
+      end
     end
   end
 
@@ -49,13 +53,13 @@ class CatRentalRequest < ActiveRecord::Base
   end
   
   def overlapping_requests
-    this_cat_requests = self.cat.cat_rental_requests - self
+    this_cat_requests = self.cat.cat_rental_requests
     overlapping_requests = []
     this_cat_requests.each do |request|
       unless # no overlap
               (self.start_date > request.end_date ||
-              self.end_date < request.start_date) 
-        overlapping_requests << request
+              self.end_date < request.start_date)              
+        overlapping_requests << request if request != self
       end
     end
     overlapping_requests

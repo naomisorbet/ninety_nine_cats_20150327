@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  resources :cat_rental_requests
+  resource  :sessions, :only => [:new, :create, :destroy]
+  resources :users, :only => [:new, :create, :show, :edit, :update]
+  resources :cat_rental_requests do
+      member do
+        post 'approve'
+        post 'deny'
+      end
+      collection do
+        post 'new'
+      end
+    end
   resources :cats
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

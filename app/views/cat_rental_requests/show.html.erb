@@ -20,5 +20,10 @@
 	<%= @cat_rental_request.status %>
 </p>
 
+<p>
+	<% if current_user.cats.include?(@cat_rental_request.cat)%>
+		<%= button_to "Approve", {action: :approve} %>
+		<%= button_to "Deny", {action: :deny} %>
+    <% end %>
 <%= link_to 'Edit', edit_cat_rental_request_path(@cat_rental_request) %> |
 <%= link_to 'Back', cat_rental_requests_path %>

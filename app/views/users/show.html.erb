@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+	<ul><strong>Cats:</strong>
+	<% @user.cats.each do |cat| %>
+		<li class="unbulleted_list"><%= link_to "#{cat.name}", cat %></li>
+	<% end %>
+</ul>
+</p>
+
+<p>
+	<ul><strong>Cat Rental Requests (my cats):</strong>
+	<% @user.cats.each do |cat| %>
+		<% cat.cat_rental_requests.each do |request| %>
+		    <li class="unbulleted list"><%= link_to "request", 			request %>
+		<% end %>
+	<% end %>
+			
+</p>
+

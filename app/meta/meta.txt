@@ -3,3 +3,5 @@ in #cat_rental_request#overlapping_rental_requests, apparently I'm supposed to u
 how can the cat_rental_request form (through a call in new, through the controller) access the names of all the DB's cats?  That's a separate model.  Does it matter?  It seems to.  So, how to access a different model's resources from a controller.
 
 Cat.all.each in the form!
+
+DO I need a session model?  I think so?  to match the user's session_token (in the cookie) against?  Couldn't I just use the User model??  Is there a params[:session]?  TBD.

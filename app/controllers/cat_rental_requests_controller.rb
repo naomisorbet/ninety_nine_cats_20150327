@@ -1,5 +1,6 @@
 class CatRentalRequestsController < ApplicationController
-  before_action :set_cat_rental_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_cat_rental_request, only: [:show, :approve, :deny, :destroy]
+  before_action :ensure_cat_ownership, only: [:approve, :deny]
 
   # GET /cat_rental_requests
   # GET /cat_rental_requests.json
@@ -10,6 +11,20 @@ class CatRentalRequestsController < ApplicationController
   # GET /cat_rental_requests/1
   # GET /cat_rental_requests/1.json
   def show
+  end
+  
+  def approve
+    current_request = CatRentalRequest.find_by_id(params[:id])
+    current_request.approve!
+    flash[:notices] = "Rental request successfully approved"
+    redirect_to cat_rental_requests_url(current_request)
+  end
+  
+  def deny
+    current_request = CatRentalRequest.find_by_id(params[:id])
+    current_request.deny!    
+    flash[:notices] = "Rental request successfully denied"    
+    redirect_to cat_rental_requests_url(current_request)
   end
 
   # GET /cat_rental_requests/new
@@ -26,15 +41,15 @@ class CatRentalRequestsController < ApplicationController
   # POST /cat_rental_requests.json
   def create
     @cat_rental_request = CatRentalRequest.new(cat_rental_request_params)
-
+    @cat_rental_request.renter_id = current_user.id
     respond_to do |format|
       if @cat_rental_request.save!
         format.html { redirect_to @cat_rental_request, notice: 'Cat rental request was successfully created.' }
         format.json { render :show, status: :created, location: @cat_rental_request }
       else
-        render :new
-        # format.html { render :new }
-#         format.json { render json: @cat_rental_request.errors, status: :unprocessable_entity }
+        flash[:notice]="Rental request unsuccessful"
+         format.html { render :new }
+         format.json { render json: @cat_rental_request.errors, status: :unprocessable_entity }
        end
     end
   end
@@ -64,6 +79,14 @@ class CatRentalRequestsController < ApplicationController
   end
 
   private
+  
+    def ensure_cat_ownership
+      unless current_user == @cat_rental_request.cat.owner
+        flash[:notices] = "Not your cat"
+        redirect_to cats_url
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_cat_rental_request
       @cat_rental_request = CatRentalRequest.find(params[:id])
